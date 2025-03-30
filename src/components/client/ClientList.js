@@ -5,6 +5,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import AddClient from "./AddClient";
 import DeleteModal from "@/common/DeleteModal";
+import { IconPencil, IconPlus, IconTrash } from "@tabler/icons-react";
 
 const deleteModalInfo = {
   header: "Client Delete",
@@ -53,7 +54,7 @@ const ClientList = () => {
           onClick={() => setShow(true)}
         >
           <span>
-            <i className="ti ti-plus me-sm-1" />
+            <IconPlus stroke={2} className="me-sm-1" />
             <span className="d-none d-sm-inline-block">Add Client</span>
           </span>
         </button>
@@ -93,9 +94,10 @@ const ClientList = () => {
                       </td>
                       <td>
                         <div className="d-flex justify-content-evenly">
-                          <i className="ti ti-pencil me-1" />
-                          <i
-                            className="ti ti-trash me-1"
+                          <IconPencil stroke={1} className="me-2" size={20} />
+                          <IconTrash
+                            size={20}
+                            stroke={1}
                             onClick={(e) => {
                               e.stopPropagation();
                               setDeleteModal(true);

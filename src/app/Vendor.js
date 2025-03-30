@@ -18,4 +18,4 @@ import "../assets/vendor/css/pages/page-profile.css";
 import "../assets/vendor/css/pages/page-user-view.css";
 import "../assets/vendor/fonts/flag-icons.css";
 import "../assets/vendor/fonts/fontawesome.css";
-import "../assets/vendor/fonts/tabler-icons.css";
+// import "../assets/vendor/fonts/tabler-icons.css";
