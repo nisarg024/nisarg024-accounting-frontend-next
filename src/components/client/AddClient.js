@@ -12,13 +12,27 @@ const AddClient = (props) => {
   const query = useQueryClient();
   const { show, handleClose } = props;
 
-  const addClientMutation = useMutation({
-    mutationFn: addClient,
-    onSuccess: () => {
-      query.invalidateQueries(["clients"]);
-      handleClose();
-    },
-  });
+  const apiCalling = (body) => {
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/client`, {
+      method: "POST",
+      credentials: "include", // ✅ Required to send and receive cookies
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log("API Response:", data))
+      .catch((error) => console.error("API Error:", error));
+  };
+
+  // const addClientMutation = useMutation({
+  //   mutationFn: addClient,
+  //   onSuccess: () => {
+  //     query.invalidateQueries(["clients"]);
+  //     handleClose();
+  //   },
+  // });
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("required *"),
@@ -40,7 +54,7 @@ const AddClient = (props) => {
       ...values,
       tables,
     };
-    addClientMutation.mutate(body);
+    apiCalling(body);
   };
 
   return (
