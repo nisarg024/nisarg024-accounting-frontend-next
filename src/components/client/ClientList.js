@@ -23,7 +23,6 @@ const ClientList = () => {
     queryKey: ["clients"],
     queryFn: getClients,
     refetchOnMount: false,
-    refetchOnWindowFocus: false,
   });
 
   const filteredClients = data?.data?.filter((client) =>

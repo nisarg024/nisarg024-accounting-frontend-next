@@ -8,6 +8,7 @@ export async function fetcherInstanceAuth(
   if (!endpoint || typeof endpoint !== "string") {
     throw new Error("Endpoint must be a valid string");
   }
+  console.log("🚀 ~ isServer:", isServer);
 
   const defaultHeaders = {
     "Content-Type": "application/json",
@@ -31,6 +32,7 @@ export async function fetcherInstanceAuth(
     }
   } else {
     const auth_token = Cookies.get("auth_token");
+    console.log("🚀 ~ auth_token:", auth_token);
     if (auth_token) {
       defaultHeaders.Authorization = `Bearer ${auth_token}`; // Use Authorization header instead
     }
