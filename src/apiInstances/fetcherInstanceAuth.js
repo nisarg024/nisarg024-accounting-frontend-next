@@ -8,7 +8,6 @@ export async function fetcherInstanceAuth(
   if (!endpoint || typeof endpoint !== "string") {
     throw new Error("Endpoint must be a valid string");
   }
-  console.log("🚀 ~ isServer:", isServer);
 
   const defaultHeaders = {
     "Content-Type": "application/json",
@@ -22,26 +21,19 @@ export async function fetcherInstanceAuth(
       const allCookies = cookieStore.getAll();
 
       if (allCookies.length > 0) {
-        const cookieHeader = allCookies
+        defaultHeaders.Cookie = allCookies
           .map((cookie) => `${cookie.name}=${cookie.value}`)
           .join("; ");
-        defaultHeaders.Cookie = cookieHeader;
       }
     } catch (error) {
       console.warn("Failed to get cookies:", error);
-    }
-  } else {
-    const auth_token = Cookies.get("auth_token");
-    console.log("🚀 ~ auth_token:", auth_token);
-    if (auth_token) {
-      defaultHeaders.Authorization = `Bearer ${auth_token}`; // Use Authorization header instead
     }
   }
 
   const options = {
     method,
     headers: defaultHeaders,
-    credentials: "include", // Ensure cookies are sent with the request
+    credentials: isServer ? undefined : "include",
   };
 
   if (body) {

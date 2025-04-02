@@ -10,7 +10,7 @@ export const login = async (body) => {
     Cookies.set("auth_token", res?.data?.accessToken, {
       expires: 10000,
       secure: true,
-      sameSite: "Strict",
+      sameSite: "none",
     });
 
     return res;
