@@ -5,7 +5,6 @@ export async function fetcherInstanceAuth(
   { method = "GET", body = null, headers = {} } = {}
 ) {
   const isServer = typeof window === "undefined";
-
   if (!endpoint || typeof endpoint !== "string") {
     throw new Error("Endpoint must be a valid string");
   }
