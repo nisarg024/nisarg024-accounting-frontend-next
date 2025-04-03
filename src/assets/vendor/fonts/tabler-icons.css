@@ -8,12 +8,12 @@
     url("tabler/tabler-icons.woff") format("woff"),
     url("tabler/tabler-icons.ttf") format("truetype");
 }
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
+/* @media screen and (-webkit-min-device-pixel-ratio: 0) {
   @font-face {
     font-family: "tabler-icons";
     src: url("tabler/tabler-icons.html#tabler-icons") format("svg");
   }
-}
+} */
 .ti {
   vertical-align: middle;
   font-size: 1.25rem;

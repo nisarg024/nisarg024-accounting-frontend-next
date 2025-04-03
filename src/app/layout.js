@@ -4,6 +4,7 @@ import "./globals.css";
 import "./Vendor";
 import QueryProvider from "@/utils/react-query/QueryProvider";
 import { Toaster } from "react-hot-toast";
+import ProgressBarProvider from "@/utils/progressbar-provider/ProgressBarProvider";
 
 export const metadata = {
   title: "Create Next App",
@@ -30,7 +31,7 @@ export default function RootLayout({ children }) {
       <QueryProvider>
         <body>
           <Toaster position="top-center" reverseOrder={false} />
-          {children}
+          <ProgressBarProvider>{children}</ProgressBarProvider>
         </body>
       </QueryProvider>
     </html>

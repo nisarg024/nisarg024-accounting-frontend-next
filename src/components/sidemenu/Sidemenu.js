@@ -4,6 +4,7 @@ import SvgLogo from "./SvgLogo";
 import { routes } from "@/utils/routes";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Sidemenu = () => {
   const router = useRouter();
@@ -38,15 +39,11 @@ const Sidemenu = () => {
       <div className="menu-inner-shadow" />
       <ul className="menu-inner py-1 overflow-hidden">
         {routes?.map((item, i) => (
-          <li key={i} className={`menu-item `}>
-            <a
-              // href={item?.path}
-              className="menu-link"
-              // onClick={() => setToggle(false)}
-            >
+          <li key={i} className={`menu-item cursor-pointer`}>
+            <Link href={`${item?.path}`} className="menu-link">
               <i className={`menu-icon tf-icons ti ${item.icon}`} />
               <div data-i18n="Email">{item.name}</div>
-            </a>
+            </Link>
           </li>
         ))}
         <li className="menu-item mt-auto">
