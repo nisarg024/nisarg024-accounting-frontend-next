@@ -5,11 +5,13 @@ export async function fetcherInstanceAuth(
   { method = "GET", body = null, headers = {} } = {}
 ) {
   const isServer = typeof window === "undefined";
+
   if (!endpoint || typeof endpoint !== "string") {
     throw new Error("Endpoint must be a valid string");
   }
 
   const defaultHeaders = {
+    "Access-Control-Allow-Credentials": true,
     "Content-Type": "application/json",
     ...headers,
   };
@@ -18,15 +20,19 @@ export async function fetcherInstanceAuth(
     try {
       const { cookies } = await import("next/headers");
       const cookieStore = await cookies();
-      const allCookies = cookieStore.getAll();
+      const authCookie = cookieStore.get("auth_token");
 
-      if (allCookies.length > 0) {
-        defaultHeaders.Cookie = allCookies
-          .map((cookie) => `${cookie.name}=${cookie.value}`)
-          .join("; ");
+      if (authCookie) {
+        defaultHeaders.Cookie = `${authCookie.name}=${authCookie.value}`;
       }
     } catch (error) {
       console.warn("Failed to get cookies:", error);
+    }
+  } else {
+    const authToken = Cookies.get("auth_token");
+    console.log("🚀 ~ authToken:", authToken);
+    if (authToken) {
+      defaultHeaders.Cookie = `auth_token=${authToken}`;
     }
   }
 

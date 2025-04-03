@@ -7,10 +7,11 @@ export const login = async (body) => {
   try {
     const res = await fetcherInstance("/login", { method: "POST", body });
     toast.success(res.message);
+
     Cookies.set("auth_token", res?.data?.accessToken, {
-      expires: 10000,
+      expires: 7,
       secure: true,
-      sameSite: "none",
+      sameSite: "Lax", // Avoid cross-site issues
     });
 
     return res;
