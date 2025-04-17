@@ -1,7 +1,13 @@
+"use client";
 import Sidemenu from "@/components/sidemenu/Sidemenu";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Admin = ({ children }) => {
+  const [a, setA] = useState(false);
+  useEffect(() => {
+    setA(true);
+  }, []);
+  console.log("🚀 ~ Admin ~ a:", a);
   return (
     <div
       className={`light-style layout-navbar-fixed layout-compact layout-menu-fixed`}

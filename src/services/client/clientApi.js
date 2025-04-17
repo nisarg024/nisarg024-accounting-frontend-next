@@ -36,10 +36,12 @@ export const getClients = async (body) => {
 
 export const getSingleClient = async (id) => {
   try {
-    const res = await axiosInstanceAuth.get(`/getclients/${id}`);
-    return res?.data;
+    const data = await fetcherInstanceAuth(`/getclients/${id}`, {
+      method: "GET",
+    });
+    return data;
   } catch (error) {
-    return error?.response;
+    return error;
   }
 };
 
@@ -67,10 +69,13 @@ export const addClientTable = async (body) => {
 
 export const getClientTable = async (id, body) => {
   try {
-    const res = await axiosInstanceAuth.post(`/client_table/${id}`, body);
-    return res.data;
+    const res = await fetcherInstanceAuth(`/client_table/${id}`, {
+      method: "POST",
+      body,
+    });
+    return res;
   } catch (error) {
-    return error?.response;
+    return error;
   }
 };
 

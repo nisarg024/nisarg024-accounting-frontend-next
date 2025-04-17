@@ -5,31 +5,34 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import AddClient from "./AddClient";
 import DeleteModal from "@/common/DeleteModal";
+import { useRouter } from "next-nprogress-bar";
 
 const deleteModalInfo = {
   header: "Client Delete",
   description: "Are you sure you want to delete this client?",
 };
-const ClientList = () => {
+const ClientList = ({ clients }) => {
+  console.log("🚀 ~ ClientList ~ clients:", clients);
   const query = useQueryClient();
+  const router = useRouter();
   const [id, setId] = useState("");
   const [show, setShow] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [deleteModalLoading, setDeleteModalLoading] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["clients"],
-    queryFn: getClients,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-  });
+  // const { data, isLoading } = useQuery({
+  //   queryKey: ["clients"],
+  //   queryFn: getClients,
+  //   refetchOnMount: false,
+  //   refetchOnWindowFocus: false,
+  // });
 
-  const filteredClients = data?.data?.filter((client) =>
-    `${client.firstName} ${client.lastName}`
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase())
-  );
+  // const filteredClients = data?.data?.filter((client) =>
+  //   `${client.firstName} ${client.lastName}`
+  //     .toLowerCase()
+  //     .includes(searchQuery.toLowerCase())
+  // );
 
   const deleteMutation = useMutation({
     onMutate: () => setDeleteModalLoading(true),
@@ -70,7 +73,7 @@ const ClientList = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
-      {isLoading ? (
+      {false ? (
         <CenterLoader />
       ) : (
         <div className="card mt-2">
@@ -84,9 +87,14 @@ const ClientList = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredClients?.length > 0 ? (
-                  filteredClients.map((item, i) => (
-                    <tr key={item?._id}>
+                {clients?.length > 0 ? (
+                  clients.map((item, i) => (
+                    <tr
+                      onClick={() =>
+                        router.push(`/admin/client/${item?._id}?tab=Main`)
+                      }
+                      key={item?._id}
+                    >
                       <td>{i + 1}.</td>
                       <td className="text-nowrap">
                         {item?.firstName} {item?.lastName}
